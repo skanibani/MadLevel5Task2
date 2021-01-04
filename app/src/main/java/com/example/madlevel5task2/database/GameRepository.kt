@@ -3,16 +3,18 @@ package com.example.madlevel5task2.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import com.example.madlevel5task2.model.Game
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class GameRepository(context: Context) {
 
     private val gameDao: GameDao
+    private val mainScope = CoroutineScope(Dispatchers.Main)
 
     init {
-        val database = GameRoomDatabase.getInstance(context)
-        gameDao = database!!.gameDao
+        gameDao = GameRoomDatabase.getInstance(context).gameDao
     }
 
     fun getAllGames(): LiveData<List<Game>> {
@@ -20,10 +22,26 @@ class GameRepository(context: Context) {
     }
 
     fun insertGame(game: Game) {
-        gameDao.insert(game)
+        mainScope.launch {
+            withContext(Dispatchers.IO) {
+                gameDao.insert(game)
+            }
+        }
     }
 
-    suspend fun updateGame(game: Game) {
-        gameDao.update(game)
+    fun updateGame(game: Game) {
+        mainScope.launch {
+            withContext(Dispatchers.IO) {
+                gameDao.update(game)
+            }
+        }
+    }
+
+    fun deleteAllItems() {
+        mainScope.launch {
+            withContext(Dispatchers.IO) {
+                gameDao.deleteAll()
+            }
+        }
     }
 }

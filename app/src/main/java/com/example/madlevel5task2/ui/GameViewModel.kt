@@ -25,25 +25,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     // Data operations on the games repository inside view model
     fun insertGame(game: Game) {
-        if (isGameValid(game)) {
-            mainScope.launch {
-                withContext(Dispatchers.IO) {
-                    gameRepository.insertGame(game)
-                }
-                success.value = true
-            }
-        }
+        gameRepository.insertGame(game)
     }
 
     fun updateGame(game: Game) {
-        if (isGameValid(game)) {
-            mainScope.launch {
-                withContext(Dispatchers.IO) {
-                    gameRepository.updateGame(game)
-                }
-                success.value = true
-            }
-        }
+        gameRepository.updateGame(game)
     }
 
     private fun isGameValid(game: Game): Boolean {
