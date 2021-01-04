@@ -58,6 +58,16 @@ class GameBacklogFragment : Fragment() {
         binding.fabAdd.setOnClickListener {
             findNavController().navigate(R.id.action_GameBacklogFragment_to_AddGameFragment)
         }
+
+        binding.mainToolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.trash -> {
+                    viewModel.deleteAllGames()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun observeViewModel() {

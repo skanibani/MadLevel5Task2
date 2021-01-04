@@ -41,4 +41,8 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             else -> true
         }
     }
+
+    fun deleteAllGames() {
+        gameRepository.deleteAllItems()
+    }
 }

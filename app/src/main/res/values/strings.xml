@@ -13,4 +13,6 @@
     <string name="add_game">Add Game</string>
     <string name="input_hint_title">Title</string>
     <string name="input_hint_platform">Platform</string>
+    <string name="game_backlock">Game Backlog</string>
+    <string name="delete">Delete</string>
 </resources>
